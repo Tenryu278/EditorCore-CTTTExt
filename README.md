@@ -1,7 +1,12 @@
-# EditorCore Exaples
-This repo contains some POC modules for [EditorCore](https://github.com/exelix11/EditorCore). This means they won't be supported and haven't been tested in-game. \
-Currently there are 2 modules:
-- Mario Kart 8 Deluxe (Switch) : MK8DExt
-- Captain Toad Treasure Tracker (3ds) : CTTT3DSExt
+# EditorCore-CTTT3DS
+An [Editor Core](https://github.com/exelix11/EditorCore) plugin of Captain Toad Tresure Tracker 3DS
 
-Check each module readme for building instructions.
+(Unsupported for MK8DExt)
+
+# Credits
+This editor contains code or libraries from:
+- [KillzXGaming's BFRES C# code ](https://github.com/KillzXGaming/Smash-Forge)
+- [gdkchan's BnTxx ](https://github.com/gdkchan/BnTxx)
+- [Gericom's EveryFileExplorer](https://github.com/Gericom/EveryFileExplorer)
+- [masterf0x's RedCarpet](https://github.com/masterf0x/RedCarpet)
+- [AboodXD's SarcLib](https://github.com/aboood40091/SarcLib/)
