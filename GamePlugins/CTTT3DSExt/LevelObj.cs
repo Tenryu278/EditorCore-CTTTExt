@@ -15,7 +15,7 @@ using System.Windows.Forms.Design;
 using System.Windows.Media.Media3D;
 using static EditorCore.PropertyGridTypes;
 
-namespace CaptainToadRebirthExt
+namespace CTTT3DSExt
 {
     public class LevelObj : ILevelObj
 	{

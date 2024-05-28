@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace CaptainToadRebirthExt
+namespace CTTT3DSExt
 {
     public class ObjList : List<ILevelObj>, IObjList
 	{

@@ -31,7 +31,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KCLExt", "FileFormatPlugins
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorCoreCommon", "EditorCoreCommon\EditorCoreCommon.csproj", "{EE9882D0-F7A7-45E1-971A-1527B7E399F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaptainToadRebirthExt", "GamePlugins\CTTT3DSExt\CaptainToadRebirthExt.csproj", "{BAF2D105-4DBD-4427-8573-7B634579FA71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTTT3DSExt", "GamePlugins\CTTT3DSExt\CTTT3DSExt.csproj", "{BAF2D105-4DBD-4427-8573-7B634579FA71}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{33857EFA-9525-46EF-A7FF-2305D7AABE8F}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

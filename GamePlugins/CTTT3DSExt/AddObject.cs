@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CaptainToadRebirthExt
+namespace CTTT3DSExt
 {
     public partial class AddObject : Form
     {

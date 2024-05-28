@@ -1,4 +1,4 @@
-﻿namespace CaptainToadRebirthExt
+﻿namespace CTTT3DSExt
 {
     partial class DumpModels
     {

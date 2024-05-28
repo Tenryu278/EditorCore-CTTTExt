@@ -121,7 +121,7 @@
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(175, 320);
+            this.button5.Location = new System.Drawing.Point(175, 318);
             this.button5.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(253, 32);
@@ -402,7 +402,7 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Location = new System.Drawing.Point(5, 320);
+            this.button4.Location = new System.Drawing.Point(5, 318);
             this.button4.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(125, 32);
@@ -420,7 +420,7 @@
             this.propertyGrid1.Location = new System.Drawing.Point(7, 4);
             this.propertyGrid1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(422, 312);
+            this.propertyGrid1.Size = new System.Drawing.Size(422, 310);
             this.propertyGrid1.TabIndex = 0;
             this.propertyGrid1.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGridChange);
             this.propertyGrid1.Click += new System.EventHandler(this.propertyGrid1_Click);
@@ -616,21 +616,21 @@
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(267, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(202, 6);
             // 
             // gamePathToolStripItem
             // 
             this.gamePathToolStripItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changeToolStripMenuItem});
             this.gamePathToolStripItem.Name = "gamePathToolStripItem";
-            this.gamePathToolStripItem.Size = new System.Drawing.Size(270, 34);
+            this.gamePathToolStripItem.Size = new System.Drawing.Size(205, 34);
             this.gamePathToolStripItem.Text = "Game path:";
             this.gamePathToolStripItem.Click += new System.EventHandler(this.gamePathToolStripItem_Click);
             // 
             // changeToolStripMenuItem
             // 
             this.changeToolStripMenuItem.Name = "changeToolStripMenuItem";
-            this.changeToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.changeToolStripMenuItem.Size = new System.Drawing.Size(174, 34);
             this.changeToolStripMenuItem.Text = "Change";
             this.changeToolStripMenuItem.Click += new System.EventHandler(this.changeToolStripMenuItem_Click);
             // 
@@ -822,7 +822,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.splitContainer2);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "EditorForm";
             this.Text = "EditorCore";

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CaptainToadRebirthExt.EditorFroms
+namespace CTTT3DSExt.EditorFroms
 {
     public partial class LinksEditor : Form, IEditorChild
     {

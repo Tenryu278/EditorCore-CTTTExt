@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CaptainToadRebirthExt
+namespace CTTT3DSExt
 {
-	class CaptainToadRrbirth : ExtensionManifest
+	class CTTT3DSExt : ExtensionManifest
 	{
-		public string ModuleName => "Captain Toad Rebirth EXT";
+		public string ModuleName => "CTTT3DSEXT";
 		public string Author => "Exelix11";
 		public string ExtraText => null;
 

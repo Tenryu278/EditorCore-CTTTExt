@@ -1,4 +1,4 @@
-﻿namespace CaptainToadRebirthExt.EditorFroms
+﻿namespace CTTT3DSExt.EditorFroms
 {
     partial class LinksEditor
     {

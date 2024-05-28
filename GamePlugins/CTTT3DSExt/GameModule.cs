@@ -1,5 +1,5 @@
 ﻿using ByamlExt;
-using CaptainToadRebirthExt.Properties;
+using CTTT3DSExt.Properties;
 using EditorCore;
 using EditorCore.EditorFroms;
 using EditorCore.Interfaces;
@@ -20,11 +20,11 @@ using System.Globalization;
 using System.Dynamic;
 using System.Windows;
 
-namespace CaptainToadRebirthExt
+namespace CTTT3DSExt
 {
 	public class CTTT3DSModule : IGameModule
 	{
-		public string ModuleName => "Captain Toad Rebirth";
+		public string ModuleName => "CTTT3DSExt";
 
 		public Tuple<Type, Type>[] GetClassConverters { get; } =
 		new Tuple<Type, Type>[] {
@@ -41,7 +41,7 @@ namespace CaptainToadRebirthExt
 		public IEditorFormContext ViewForm { get; set; } = null;
 		public string GameFolder => ViewForm.GameFolder;
 
-		public string ModelsFolder => "CaptainToadRebirth";
+		public string ModelsFolder => "CTTT3DS";
 
 		// Code to convert models return false == fail
 		public bool ConvertModelFile(string ObjName, string path)
