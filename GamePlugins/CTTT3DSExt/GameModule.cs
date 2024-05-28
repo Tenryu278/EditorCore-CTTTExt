@@ -187,47 +187,60 @@ namespace CTTT3DSExt
 
 		public Tuple<string, dynamic> GetNewProperty(dynamic target) => AddBymlPropertyDialog.newProperty(target is IDictionary<string, dynamic>);
 
-		public void FormLoaded(bool startup)
+		public async void FormLoaded(bool startup)
 		{
 			if (!Directory.Exists(ModelsFolder))
 			{
 				Directory.CreateDirectory(ModelsFolder);
 				ZipArchive zip = new ZipArchive(new MemoryStream(Resources.baseModels));
 				zip.ExtractToDirectory(ModelsFolder);
-			}
-			if (!Directory.Exists($"{ModelsFolder}/Textures"))
-			{
+			
                 if (GameFolder == "" || !Directory.Exists(GameFolder))
 					MessageBox.Show("The game path is not set or not valid, can't extract models.\rPlease chenge GamePath from settings.","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
 				else
 				{
-                    s = Directory.GetFiles($"{GameFolder}ObjectData\\", "*.szs", SearchOption.TopDirectoryOnly).Length;
-                    Directory.CreateDirectory($"{ModelsFolder}/Textures");
-					if (startup == true)
+					try
 					{
-						var dlg = MessageBox.Show($"The game models archives will be extracted in {ModelsFolder}, this might take a while", "Dump models", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
-                        if (dlg == DialogResult.OK)
+
+
+						s = Directory.GetFiles($"{GameFolder}ObjectData\\", "*.szs", SearchOption.TopDirectoryOnly).Length;
+						Directory.CreateDirectory($"{ModelsFolder}/Textures");
+						if (startup == true) //if changing Gamepath from settings, dont show messagebox
 						{
-							startup = false;
+							var dlg = MessageBox.Show($"The game models archives will be extracted in {ModelsFolder}, this might take a while", "Dump models", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+							if (dlg == DialogResult.OK)
+							{
+								startup = false;
+							}
+						}
+						if (startup == false)
+						{
+							var dump = new DumpModels();
+							dump.Show();
+							foreach (var export in Directory.GetFiles($"{GameFolder}ObjectData\\", "*.szs", SearchOption.TopDirectoryOnly))
+							{
+								var Sarc = SARCExt.SARC.UnpackRam(YAZ0.Decompress(File.ReadAllBytes(export)));
+								string keyName = Path.GetFileNameWithoutExtension(export);
+								var checkObjFile = Sarc.ContainsKey(keyName + ".bch");
+                                MessageBox.Show(keyName);
+                                if (checkObjFile == true)
+								{
+									var mod = Ohana3DS_Rebirth.Ohana.Models.BCH.load(new MemoryStream(Sarc[keyName + ".bch"]));
+                                    Ohana3DS_Rebirth.Ohana.Models.GenericFormats.OBJ.export(mod, $"{ModelsFolder}/{keyName}.obj", 0);
+                                }
+								if (keyName.Contains("Texture"))
+								{
+									var mod = Ohana3DS_Rebirth.Ohana.Models.BCH.load(new MemoryStream(Sarc[keyName + ".bch"]));
+                                    Ohana3DS_Rebirth.Ohana.Models.GenericFormats.OBJ.ExportTextures(mod, ModelsFolder);
+                                }
+							  dump.Progressbar1_plus();
+							}
+							dump.Close();
 						}
 					}
-					if (startup == false)
-                    {
-                        var dump = new DumpModels();
-						dump.Show();
-                        foreach (var export in Directory.GetFiles($"{GameFolder}ObjectData\\", "*.szs", SearchOption.TopDirectoryOnly))
-                        {
-                            var Sarc = SARCExt.SARC.UnpackRam(YAZ0.Decompress(File.ReadAllBytes(export)));
-                            string keyName = Path.GetFileNameWithoutExtension(export);
-                            var checkObjFile = Sarc.ContainsKey(keyName + ".bch");
-                            if (checkObjFile == true)
-                            {
-                                var mod = Ohana3DS_Rebirth.Ohana.Models.BCH.load(new MemoryStream(Sarc[keyName + ".bch"]));
-                                Ohana3DS_Rebirth.Ohana.Models.GenericFormats.OBJ.export(mod, $"{ModelsFolder}/{keyName}.obj", 0);
-                            }
-							dump.Progressbar1_plus();
-                        }
-                        dump.Close();
+					catch(Exception ex)
+					{
+                        MessageBox.Show($"The game path is not valid, couldn't extract models.\r\r{ex}", "Game Path is not valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 				}
 			}

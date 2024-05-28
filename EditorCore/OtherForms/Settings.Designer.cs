@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.SettingsPanel = new System.Windows.Forms.Panel();
             this.chbCustomModels = new System.Windows.Forms.CheckBox();
             this.drawDistance = new System.Windows.Forms.NumericUpDown();
@@ -367,6 +368,7 @@
             this.ClientSize = new System.Drawing.Size(662, 582);
             this.Controls.Add(this.SettingsPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.MaximizeBox = false;
             this.Name = "Settings";

@@ -1074,7 +1074,7 @@ namespace EditorCore
 
 			if (SelectionCount == 0) return;
 			if (e.Key == Key.Space) render.LookAt(SelectedObj.ModelView_Pos);
-			else if (e.Key == Key.OemPlus && ddmAdd.Enabled) ddmAdd_Click(null, null);
+			else if (e.Key == Key.OemPlus && toolStripButton1.Enabled) toolStripButton1_Click(null, null);
 			else if (e.Key == Key.D && SelectionCount != 0) DuplicateObjs(SelectedObjs, CurList);
 			else if (e.Key == Key.Delete) btn_delObj_Click(null, null);
 			else if (e.Key == Key.F) FindMenu.ShowDropDown();
@@ -1387,6 +1387,16 @@ namespace EditorCore
         private void gamePathToolStripItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            var obj = GameModule.NewObject();
+            if (obj != null)
+            {
+                obj.ModelView_Pos = render.GetPositionInView();
+                AddObj(obj, CurList);
+            }
         }
     }
 }
