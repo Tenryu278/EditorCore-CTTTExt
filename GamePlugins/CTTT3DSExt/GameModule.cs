@@ -187,7 +187,7 @@ namespace CTTT3DSExt
 
 		public Tuple<string, dynamic> GetNewProperty(dynamic target) => AddBymlPropertyDialog.newProperty(target is IDictionary<string, dynamic>);
 
-		public async void FormLoaded(bool startup)
+		public void FormLoaded(bool startup)
 		{
 			if (!Directory.Exists(ModelsFolder))
 			{
@@ -199,6 +199,7 @@ namespace CTTT3DSExt
 					MessageBox.Show("The game path is not set or not valid, can't extract models.\rPlease chenge GamePath from settings.","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
 				else
 				{
+					string keyName = "";
 					try
 					{
 
@@ -215,37 +216,41 @@ namespace CTTT3DSExt
 						}
 						if (startup == false)
 						{
-							var dump = new DumpModels();
-							dump.Show();
-							foreach (var export in Directory.GetFiles($"{GameFolder}ObjectData\\", "*.szs", SearchOption.TopDirectoryOnly))
+							for (int prosess = 0; prosess < 2; prosess++)
 							{
-								var Sarc = SARCExt.SARC.UnpackRam(YAZ0.Decompress(File.ReadAllBytes(export)));
-								string keyName = Path.GetFileNameWithoutExtension(export);
-								var checkObjFile = Sarc.ContainsKey(keyName + ".bch");
-                                MessageBox.Show(keyName);
-                                if (checkObjFile == true)
+								var dump = new DumpModels();
+								dump.Show();
+								foreach (var export in Directory.GetFiles($"{GameFolder}ObjectData\\", "*.szs", SearchOption.TopDirectoryOnly))
 								{
-									var mod = Ohana3DS_Rebirth.Ohana.Models.BCH.load(new MemoryStream(Sarc[keyName + ".bch"]));
-                                    Ohana3DS_Rebirth.Ohana.Models.GenericFormats.OBJ.export(mod, $"{ModelsFolder}/{keyName}.obj", 0);
-                                }
-								if (keyName.Contains("Texture"))
-								{
-									var mod = Ohana3DS_Rebirth.Ohana.Models.BCH.load(new MemoryStream(Sarc[keyName + ".bch"]));
-                                    Ohana3DS_Rebirth.Ohana.Models.GenericFormats.OBJ.ExportTextures(mod, ModelsFolder);
-                                }
-							  dump.Progressbar1_plus();
+									var Sarc = SARCExt.SARC.UnpackRam(YAZ0.Decompress(File.ReadAllBytes(export)));
+									keyName = Path.GetFileNameWithoutExtension(export);
+									var checkObjFile = Sarc.ContainsKey(keyName + ".bch");
+									if (checkObjFile == true && prosess == 1)
+									{
+										var mod = Ohana3DS_Rebirth.Ohana.Models.BCH.load(new MemoryStream(Sarc[keyName + ".bch"]));
+										Ohana3DS_Rebirth.Ohana.Models.GenericFormats.OBJ.export(mod, $"{ModelsFolder}/{keyName}.obj", 0);
+										Ohana3DS_Rebirth.Ohana.Models.GenericFormats.OBJ.ExportTextures(mod, ModelsFolder);
+									}
+									if (checkObjFile == true && keyName.Contains("Texture") && prosess == 0)
+									{
+										var mod = Ohana3DS_Rebirth.Ohana.Models.BCH.load(new MemoryStream(Sarc[keyName + ".bch"]));
+										Ohana3DS_Rebirth.Ohana.Models.GenericFormats.OBJ.ExportTextures(mod, ModelsFolder);
+									}
+									dump.Progressbar1_plus();
+								}
+								dump.Close();
 							}
-							dump.Close();
 						}
 					}
 					catch(Exception ex)
 					{
-                        MessageBox.Show($"The game path is not valid, couldn't extract models.\r\r{ex}", "Game Path is not valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"The game path is not valid, couldn't extract models.\r\rFileName={keyName}\r{ex}", "Game Path is not valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 				}
 			}
 		}
 		public static int s = 0;
+
 	}
 
 	public class LinksConveter : System.ComponentModel.TypeConverter

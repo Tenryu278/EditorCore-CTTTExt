@@ -101,6 +101,7 @@
             this.ObjectRightClickMenu_PasteTransform = new System.Windows.Forms.ToolStripMenuItem();
             this.ObjectRightClickMenu_Hide = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.recentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -120,7 +121,7 @@
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(175, 310);
+            this.button5.Location = new System.Drawing.Point(175, 308);
             this.button5.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(253, 32);
@@ -395,7 +396,7 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Location = new System.Drawing.Point(5, 310);
+            this.button4.Location = new System.Drawing.Point(5, 308);
             this.button4.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(125, 32);
@@ -413,7 +414,7 @@
             this.propertyGrid1.Location = new System.Drawing.Point(7, 4);
             this.propertyGrid1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(422, 302);
+            this.propertyGrid1.Size = new System.Drawing.Size(422, 300);
             this.propertyGrid1.TabIndex = 0;
             this.propertyGrid1.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGridChange);
             this.propertyGrid1.Click += new System.EventHandler(this.propertyGrid1_Click);
@@ -535,6 +536,7 @@
             this.toolStripSeparator2,
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
+            this.recentToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.toolStripSeparator8,
@@ -807,6 +809,13 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(207, 6);
             // 
+            // recentToolStripMenuItem
+            // 
+            this.recentToolStripMenuItem.Name = "recentToolStripMenuItem";
+            this.recentToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.recentToolStripMenuItem.Text = "Recent";
+            this.recentToolStripMenuItem.Click += new System.EventHandler(this.recentToolStripMenuItem_Click);
+            // 
             // EditorForm
             // 
             this.AllowDrop = true;
@@ -920,6 +929,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem creditsToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem recentToolStripMenuItem;
     }
 }
 

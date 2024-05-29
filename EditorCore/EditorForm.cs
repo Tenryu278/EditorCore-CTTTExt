@@ -209,6 +209,16 @@ namespace EditorCore
 
 			FileOpenArgs = args;
 
+            ToolStripMenuItem btn = new ToolStripMenuItem();
+			btn.Text = "a";
+			btn.Click += OpenRecent;
+            recentToolStripMenuItem.DropDownItems.Add(btn);
+
+        }
+
+		private void OpenRecent(object sender, EventArgs e)
+        {
+			MessageBox.Show("Recent");
 		}
 
 		private void render_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -1397,6 +1407,11 @@ namespace EditorCore
                 obj.ModelView_Pos = render.GetPositionInView();
                 AddObj(obj, CurList);
             }
+        }
+
+        private void recentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

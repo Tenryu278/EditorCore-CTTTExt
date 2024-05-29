@@ -23,7 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\EditorCore\bin\Release\Ext\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -42,7 +42,7 @@
       <HintPath>..\..\EditorCoreCommon\bin\Release\EditorCoreCommon.dll</HintPath>
     </Reference>
     <Reference Include="HelixToolkit.Wpf">
-      <HintPath>..\..\..\..\TheFourthDimension-0.9.2\TheFourthDimension-0.9.2\packages\HelixToolkit.Wpf.2.20.2\lib\net45\HelixToolkit.Wpf.dll</HintPath>
+      <HintPath>..\..\packages\HelixToolkit.Wpf.2.25.0\lib\net462\HelixToolkit.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Ohana3DS Rebirth">
       <HintPath>..\..\FileFormatPlugins\Ohana3DS Rebirth.exe</HintPath>
@@ -69,16 +69,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddObject.cs">
+    <Compile Include="Forms\AddObject.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddObject.Designer.cs">
+    <Compile Include="Forms\AddObject.Designer.cs">
       <DependentUpon>AddObject.cs</DependentUpon>
     </Compile>
-    <Compile Include="DumpModels.cs">
+    <Compile Include="Forms\DumpModels.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DumpModels.Designer.cs">
+    <Compile Include="Forms\DumpModels.Designer.cs">
       <DependentUpon>DumpModels.cs</DependentUpon>
     </Compile>
     <Compile Include="GameModule.cs" />
@@ -101,10 +101,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AddObject.resx">
+    <EmbeddedResource Include="Forms\AddObject.resx">
       <DependentUpon>AddObject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DumpModels.resx">
+    <EmbeddedResource Include="Forms\DumpModels.resx">
       <DependentUpon>DumpModels.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LinksEditor.resx">
@@ -120,6 +120,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="StageList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

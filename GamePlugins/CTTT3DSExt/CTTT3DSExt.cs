@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace CTTT3DSExt
 {
@@ -47,8 +49,14 @@ namespace CTTT3DSExt
 
         public void StageList(object sender, EventArgs e)
 		{
-			MessageBox.Show("StageList");
-		}
+			var xmlpath = "Ext/StageList.xml";
+		    XDocument document = XDocument.Load(xmlpath);
+			var li = document.Descendants("T209")
+				.FirstOrDefault()
+				.Element("T160");
+			
+
+        }
     }
 }
 
