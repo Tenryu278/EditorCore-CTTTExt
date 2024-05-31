@@ -49,11 +49,13 @@ namespace CTTT3DSExt
 
         public void StageList(object sender, EventArgs e)
 		{
-			var xmlpath = "Ext/StageList.xml";
-		    XDocument document = XDocument.Load(xmlpath);
-			var li = document.Descendants("T209")
-				.FirstOrDefault()
-				.Element("T160");
+			//var xmlpath = "Ext/StageList.xml";
+		    //XDocument document = XDocument.Load(xmlpath);
+			//var li = document.Descendants("T209")
+				//.FirstOrDefault()
+				//.Element("T160");
+			MessageBox.Show("stg");
+			
 			
 
         }

@@ -108,6 +108,7 @@ namespace CTTT3DSExt
 				if (opn.ShowDialog() != DialogResult.OK)
 					return null;
 				file = opn.FileName;
+				
 			}
 			return new Level(file);
 		}
@@ -187,8 +188,9 @@ namespace CTTT3DSExt
 
 		public Tuple<string, dynamic> GetNewProperty(dynamic target) => AddBymlPropertyDialog.newProperty(target is IDictionary<string, dynamic>);
 
-		public void FormLoaded(bool startup)
+		public void FormLoaded()
 		{
+
 			if (!Directory.Exists(ModelsFolder))
 			{
 				Directory.CreateDirectory(ModelsFolder);
@@ -250,6 +252,9 @@ namespace CTTT3DSExt
 			}
 		}
 		public static int s = 0;
+
+		bool startup;
+
 
 	}
 

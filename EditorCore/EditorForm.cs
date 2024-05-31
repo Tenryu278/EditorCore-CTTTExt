@@ -209,19 +209,37 @@ namespace EditorCore
 
 			FileOpenArgs = args;
 
-            ToolStripMenuItem btn = new ToolStripMenuItem();
-			btn.Text = "a";
-			btn.Click += OpenRecent;
-            recentToolStripMenuItem.DropDownItems.Add(btn);
+            foreach (var l in strings)
+            {
+                ToolStripMenuItem btn = new ToolStripMenuItem();
+                btn.Text = l;
+                btn.Click += OpenRecent;
+                recentToolStripMenuItem.DropDownItems.Add(btn);
+            }
 
         }
 
-		private void OpenRecent(object sender, EventArgs e)
+		public void OpenRecent(object sender, EventArgs e)
         {
-			MessageBox.Show("Recent");
+			LoadLevel(sender.ToString());
 		}
 
-		private void render_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+		public void AddRecent() 
+		{
+			var rec = strings.Last();
+			{
+                ToolStripMenuItem btn = new ToolStripMenuItem();
+                btn.Text = rec;
+                btn.Click += OpenRecent;
+                recentToolStripMenuItem.DropDownItems.Add(btn);
+            }
+        }
+
+		public List<string> strings = new List<string>();//Debug Recent
+
+
+
+        private void render_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
 		{
 			if (ActiveForm != this) return;
 			render.FocusModelView();
@@ -357,6 +375,8 @@ namespace EditorCore
 					index++;
 				}
 				LevelFilesMenu.DropDownItems.AddRange(Files.ToArray());
+				strings.Add(lev.FilePath);
+				AddRecent();
 			}
 			//LoadedLevel.OpenBymlViewer();
 			//Load models
@@ -709,21 +729,8 @@ namespace EditorCore
 					GameFolder = $"{dlg.FileName}\\";
 					Properties.Settings.Default[$"{GameModule.ModuleName}_GamePath"] = GameFolder;
 					Properties.Settings.Default.Save();
-					gamePathToolStripItem.Text = "Game path: " + GameFolder;
-					if(e != null)
-					{
-                        var msg = MessageBox.Show($"Do you want to extract models from {GameFolder} ?\r\rIf you press Yes, EditorCore will be restart.", "Extract models", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-						if(msg == DialogResult.Yes)
-						{
-                            this.Close();
-                            Directory.Delete(ModelsFolder, true );
-						}
-                        GameModule.FormLoaded(false);
-					}
-					else 
-					{
-                        GameModule.FormLoaded(true);
-                    }
+					gamePathToolStripItem.Text = "Game path: " + GameFolder; 
+                    GameModule.FormLoaded();
                 }
 			}
         }
@@ -1238,7 +1245,7 @@ namespace EditorCore
                 MessageBox.Show("You can change it from settings later");
                 this.Focus();
             }
-			else GameModule.FormLoaded(true); //GameModule.FormLoaded is also called in changeToolStripMenuItem_Click
+			else GameModule.FormLoaded(); //GameModule.FormLoaded is also called in changeToolStripMenuItem_Click  true
 			if (Properties.Settings.Default.FirstStart)
             {
                 Properties.Settings.Default.FirstStart = false;

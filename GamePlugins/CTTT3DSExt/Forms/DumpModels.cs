@@ -67,10 +67,5 @@ namespace CTTT3DSExt
         {
 
         }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start(@"https://github.com/gdkchan/Ohana3DS-Rebirth");
-        }
     }
 }

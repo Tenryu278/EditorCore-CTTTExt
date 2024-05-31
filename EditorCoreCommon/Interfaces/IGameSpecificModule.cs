@@ -53,7 +53,7 @@ namespace EditorCore.Interfaces
 		string[] AutoHideList { get; }
 
 		void InitModule(IEditorFormContext currentView);
-		void FormLoaded(bool startup); //for startup checks
+		void FormLoaded(); //for startup checks
 		void ParseArgs(string[] Args);
 
 		ILevel LoadLevel(string path = null); 
@@ -72,6 +72,7 @@ namespace EditorCore.Interfaces
 		void EditChildrenNode(ILevelObj obj);
 
 		Tuple<string, dynamic> GetNewProperty(dynamic target);
+
 	}
 
 	public interface IEditingOptionsModule
