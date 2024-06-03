@@ -182,7 +182,8 @@ namespace EditorCore
 				if (GameModule == null) return;
 
 				Properties.Settings.Default.Add<string>($"{GameModule.ModuleName}_GamePath", "");
-			}
+
+            }
 
 			GameModule.InitModule(this);
 
@@ -209,14 +210,36 @@ namespace EditorCore
 
 			FileOpenArgs = args;
 
-            foreach (var l in strings)
+			Properties.Settings.Default.AddList<System.Collections.Specialized.StringCollection>($"{GameModule.ModuleName}_Recent", new System.Collections.Specialized.StringCollection());
+			try
+			{
+				recent = (System.Collections.Specialized.StringCollection)Properties.Settings.Default[$"{GameModule.ModuleName}_Recent"];
+			} 
+			catch 
+			{
+
+			}
+
+            foreach(var rec in recent)
             {
                 ToolStripMenuItem btn = new ToolStripMenuItem();
-                btn.Text = l;
+                btn.Text = rec;
                 btn.Click += OpenRecent;
                 recentToolStripMenuItem.DropDownItems.Add(btn);
             }
 
+			if (recent.Count == 0)
+			{
+				recentToolStripMenuItem.Enabled = false;
+			}
+			else 
+			{
+                recentToolStripMenuItem.Enabled = true;
+                ToolStripMenuItem clrbtn = new ToolStripMenuItem();
+                clrbtn.Text = "Clear";
+                clrbtn.Click += ClearRecent;
+                recentToolStripMenuItem.DropDownItems.Add(clrbtn);
+            }
         }
 
 		public void OpenRecent(object sender, EventArgs e)
@@ -224,19 +247,33 @@ namespace EditorCore
 			LoadLevel(sender.ToString());
 		}
 
-		public void AddRecent() 
+	    public void ClearRecent(object sender, EventArgs e)
 		{
-			var rec = strings.Last();
+			recent.Clear();
+            Properties.Settings.Default[$"{GameModule.ModuleName}_Recent"] = recent;
+            Properties.Settings.Default.Save();
+			recentToolStripMenuItem.DropDownItems.Clear();
+			recentToolStripMenuItem.Enabled = false;
+		}
+
+		public void AddRecent(string FilePath) 
+		{
+			var rec = FilePath;
+            ToolStripMenuItem btn = new ToolStripMenuItem();
+            btn.Text = rec;
+            btn.Click += OpenRecent;
+            recentToolStripMenuItem.DropDownItems.Add(btn);
+			if (recent.Count == 1) 
 			{
-                ToolStripMenuItem btn = new ToolStripMenuItem();
-                btn.Text = rec;
-                btn.Click += OpenRecent;
-                recentToolStripMenuItem.DropDownItems.Add(btn);
+                recentToolStripMenuItem.Enabled = true;
+                ToolStripMenuItem clrbtn = new ToolStripMenuItem();
+				clrbtn.Text = "Clear";
+				clrbtn.Click += ClearRecent;
+				recentToolStripMenuItem.DropDownItems.Add(clrbtn);
             }
         }
 
-		public List<string> strings = new List<string>();//Debug Recent
-
+        System.Collections.Specialized.StringCollection recent = new System.Collections.Specialized.StringCollection();
 
 
         private void render_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -375,8 +412,10 @@ namespace EditorCore
 					index++;
 				}
 				LevelFilesMenu.DropDownItems.AddRange(Files.ToArray());
-				strings.Add(lev.FilePath);
-				AddRecent();
+                recent.Add(lev.FilePath);
+				Properties.Settings.Default[$"{GameModule.ModuleName}_Recent"] = recent;
+                Properties.Settings.Default.Save();
+                AddRecent(lev.FilePath);
 			}
 			//LoadedLevel.OpenBymlViewer();
 			//Load models
