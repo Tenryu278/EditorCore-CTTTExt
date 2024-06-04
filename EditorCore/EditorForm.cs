@@ -210,7 +210,7 @@ namespace EditorCore
 
 			FileOpenArgs = args;
 
-			Properties.Settings.Default.AddList<System.Collections.Specialized.StringCollection>($"{GameModule.ModuleName}_Recent", new System.Collections.Specialized.StringCollection());
+			Properties.Settings.Default.Add<System.Collections.Specialized.StringCollection>($"{GameModule.ModuleName}_Recent", new System.Collections.Specialized.StringCollection());
 			try
 			{
 				recent = (System.Collections.Specialized.StringCollection)Properties.Settings.Default[$"{GameModule.ModuleName}_Recent"];
@@ -220,26 +220,8 @@ namespace EditorCore
 
 			}
 
-            foreach(var rec in recent)
-            {
-                ToolStripMenuItem btn = new ToolStripMenuItem();
-                btn.Text = rec;
-                btn.Click += OpenRecent;
-                recentToolStripMenuItem.DropDownItems.Add(btn);
-            }
-
-			if (recent.Count == 0)
-			{
-				recentToolStripMenuItem.Enabled = false;
-			}
-			else 
-			{
-                recentToolStripMenuItem.Enabled = true;
-                ToolStripMenuItem clrbtn = new ToolStripMenuItem();
-                clrbtn.Text = "Clear";
-                clrbtn.Click += ClearRecent;
-                recentToolStripMenuItem.DropDownItems.Add(clrbtn);
-            }
+            if (recent.Count == 0) recentToolStripMenuItem.Enabled = false;
+			
         }
 
 		public void OpenRecent(object sender, EventArgs e)
@@ -254,26 +236,45 @@ namespace EditorCore
             Properties.Settings.Default.Save();
 			recentToolStripMenuItem.DropDownItems.Clear();
 			recentToolStripMenuItem.Enabled = false;
-		}
+
+        }
 
 		public void AddRecent(string FilePath) 
 		{
 			var rec = FilePath;
-            ToolStripMenuItem btn = new ToolStripMenuItem();
-            btn.Text = rec;
-            btn.Click += OpenRecent;
-            recentToolStripMenuItem.DropDownItems.Add(btn);
-			if (recent.Count == 1) 
+            recentToolStripMenuItem.Enabled = true;
+            if (!recent.Contains(rec))
 			{
-                recentToolStripMenuItem.Enabled = true;
-                ToolStripMenuItem clrbtn = new ToolStripMenuItem();
-				clrbtn.Text = "Clear";
-				clrbtn.Click += ClearRecent;
-				recentToolStripMenuItem.DropDownItems.Add(clrbtn);
-            }
+                recent.Add(rec);
+                Properties.Settings.Default[$"{GameModule.ModuleName}_Recent"] = recent;
+                Properties.Settings.Default.Save();
+			}
         }
 
         System.Collections.Specialized.StringCollection recent = new System.Collections.Specialized.StringCollection();
+
+		public void RecentMenu_Open(object sender, EventArgs e)
+		{
+            recentToolStripMenuItem.DropDownItems.Clear();
+            List<ToolStripMenuItem> Items = new List<ToolStripMenuItem>();
+            int count = 0;
+            foreach (var rec in recent)
+            {
+                ToolStripMenuItem btn = new ToolStripMenuItem();
+                btn.Name = rec + count.ToString();
+				btn.Text = rec; 
+				btn.Click += OpenRecent;
+                Items.Add(btn);
+                count++;
+            }
+            recentToolStripMenuItem.DropDownItems.AddRange(Items.ToArray());
+            ToolStripMenuItem clrbtn = new ToolStripMenuItem();
+            clrbtn.Text = "Clear";
+            clrbtn.Click += ClearRecent;
+            recentToolStripMenuItem.DropDownItems.Add(clrbtn);
+        }
+
+
 
 
         private void render_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -412,9 +413,6 @@ namespace EditorCore
 					index++;
 				}
 				LevelFilesMenu.DropDownItems.AddRange(Files.ToArray());
-                recent.Add(lev.FilePath);
-				Properties.Settings.Default[$"{GameModule.ModuleName}_Recent"] = recent;
-                Properties.Settings.Default.Save();
                 AddRecent(lev.FilePath);
 			}
 			//LoadedLevel.OpenBymlViewer();
@@ -686,10 +684,10 @@ namespace EditorCore
 
         private void UndoMenu_Open(object sender, EventArgs e)
         {
-            UndoMenu.DropDownItems.Clear();
+            UndotoolStripDropDownButton1.DropDownItems.Clear();
             List<ToolStripMenuItem> Items = new List<ToolStripMenuItem>();
             int count = 0;
-            foreach (UndoAction act in UndoList.ToArray().Reverse())
+            foreach (UndoAction act in UndoList.ToArray())
             {
                 ToolStripMenuItem btn = new ToolStripMenuItem();
                 btn.Name = "Undo" + count.ToString();
@@ -699,17 +697,17 @@ namespace EditorCore
                 Items.Add(btn);
                 count++;
             }
-            UndoMenu.DropDownItems.AddRange(Items.ToArray());
+            UndotoolStripDropDownButton1.DropDownItems.AddRange(Items.ToArray());
         }
 
         private void UndoListItem_MouseEnter(object sender, EventArgs e)
         {
             string SenderName = ((ToolStripMenuItem)sender).Name;
             int index = int.Parse(SenderName.Substring("Undo".Length));
-            for (int i = 0; i < UndoMenu.DropDownItems.Count; i++)
+            for (int i = 0; i < UndotoolStripDropDownButton1.DropDownItems.Count; i++)
             {
-                if (i < index) UndoMenu.DropDownItems[i].BackColor = Color.LightBlue;
-                else UndoMenu.DropDownItems[i].BackColor = SystemColors.Control;
+                if (i > index) UndotoolStripDropDownButton1.DropDownItems[i].BackColor = Color.LightBlue;
+                else UndotoolStripDropDownButton1.DropDownItems[i].BackColor = SystemColors.Control;
             }
         }
 
@@ -721,7 +719,7 @@ namespace EditorCore
             {
                 UndoList.Pop().Undo();
             }
-            UndoMenu.HideDropDown();
+            UndotoolStripDropDownButton1.HideDropDown();
         }
 
         private void OpenSzsFile_click(object sender, EventArgs e)
@@ -743,6 +741,7 @@ namespace EditorCore
 			saveAsToolStripMenuItem_Click(sender, e); //Let's not risk modifing our precious dump
 #else
 			GameModule.SaveLevel(LoadedLevel);
+			MessageBox.Show("Done!");
 #endif
 		}
 

@@ -406,10 +406,13 @@ namespace ExtensionMethods
 			{
 				PropertyType = typeof(T),
 				Provider = settings.Providers["LocalFileSettingsProvider"],
-				SerializeAs = SettingsSerializeAs.String
 			};
+            if (typeof(T).ToString() == "string") 
+                p.SerializeAs = SettingsSerializeAs.String;
+            else
+                p.SerializeAs = SettingsSerializeAs.Xml;
 
-			p.Attributes.Add(typeof(UserScopedSettingAttribute), new UserScopedSettingAttribute());
+            p.Attributes.Add(typeof(UserScopedSettingAttribute), new UserScopedSettingAttribute());
 
 			settings.Properties.Add(p);
 			settings.Reload();
@@ -423,32 +426,5 @@ namespace ExtensionMethods
 			}
 		}
 
-        //Add new setting of list, should be unify Add method
-        public static void AddList<T>(this ApplicationSettingsBase settings, string propertyName, T val)
-        {
-            if (settings.Properties[propertyName] != null)
-                return;
-
-
-            var p = new SettingsProperty(propertyName)
-            {
-                PropertyType = typeof(T),
-                Provider = settings.Providers["LocalFileSettingsProvider"],
-                SerializeAs = SettingsSerializeAs.Xml
-            };
-
-            p.Attributes.Add(typeof(UserScopedSettingAttribute), new UserScopedSettingAttribute());
-
-            settings.Properties.Add(p);
-            settings.Reload();
-
-            //finally set value with new value if none was loaded from userConfig.xml
-            var item = settings[propertyName];
-            if (item == null)
-            {
-                settings[propertyName] = val;
-                settings.Save();
-            }
-        }
     }
 }

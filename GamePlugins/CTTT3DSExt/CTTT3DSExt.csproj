@@ -85,16 +85,15 @@
     <Compile Include="Level.cs" />
     <Compile Include="LevelObj.cs" />
     <Compile Include="CTTT3DSExt.cs" />
-    <Compile Include="LinksEditor.cs">
+    <Compile Include="Forms\LinksEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LinksEditor.Designer.cs">
+    <Compile Include="Forms\LinksEditor.Designer.cs">
       <DependentUpon>LinksEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="MeshUtils.cs" />
     <Compile Include="OBJ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\CTTTSet.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -108,7 +107,7 @@
     <EmbeddedResource Include="Forms\DumpModels.resx">
       <DependentUpon>DumpModels.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LinksEditor.resx">
+    <EmbeddedResource Include="Forms\LinksEditor.resx">
       <DependentUpon>LinksEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
