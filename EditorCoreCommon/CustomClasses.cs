@@ -407,7 +407,7 @@ namespace ExtensionMethods
 				PropertyType = typeof(T),
 				Provider = settings.Providers["LocalFileSettingsProvider"],
 			};
-            if (typeof(T).ToString() == "string") 
+            if (string.Empty is T) 
                 p.SerializeAs = SettingsSerializeAs.String;
             else
                 p.SerializeAs = SettingsSerializeAs.Xml;

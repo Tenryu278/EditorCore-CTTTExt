@@ -196,52 +196,41 @@ namespace CTTT3DSExt
 				Directory.CreateDirectory(ModelsFolder);
 				ZipArchive zip = new ZipArchive(new MemoryStream(Resources.baseModels));
 				zip.ExtractToDirectory(ModelsFolder);
-			
-                if (GameFolder == "" || !Directory.Exists(GameFolder))
-					MessageBox.Show("The game path is not set or not valid, can't extract models.\rPlease chenge GamePath from settings.","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+
+				if (GameFolder == "" || !Directory.Exists(GameFolder))
+					MessageBox.Show("The game path is not set or not valid, can't extract models.\rPlease chenge GamePath from settings.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				else if (!Directory.Exists($"{GameFolder}/ObjectData"))
+					MessageBox.Show("The game path is not valid, can't extract models.\r(\"ObjectData\" directory is not exist.)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				else
 				{
 					string keyName = "";
 					try
 					{
-
-
-						s = Directory.GetFiles($"{GameFolder}ObjectData\\", "*.szs", SearchOption.TopDirectoryOnly).Length;
 						Directory.CreateDirectory($"{ModelsFolder}/Textures");
-						if (startup == true) //if changing Gamepath from settings, dont show messagebox
+						while (process < 2)
 						{
-							var dlg = MessageBox.Show($"The game models archives will be extracted in {ModelsFolder}, this might take a while", "Dump models", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
-							if (dlg == DialogResult.OK)
-							{
-								startup = false;
-							}
-						}
-						if (startup == false)
-						{
-							for (int prosess = 0; prosess < 2; prosess++)
-							{
-								var dump = new DumpModels();
-								dump.Show();
-								foreach (var export in Directory.GetFiles($"{GameFolder}ObjectData\\", "*.szs", SearchOption.TopDirectoryOnly))
-								{
-									var Sarc = SARCExt.SARC.UnpackRam(YAZ0.Decompress(File.ReadAllBytes(export)));
-									keyName = Path.GetFileNameWithoutExtension(export);
-									var checkObjFile = Sarc.ContainsKey(keyName + ".bch");
-									if (checkObjFile == true && prosess == 1)
+							var dump = new ModelDumper(Directory.GetFiles($"{GameFolder}ObjectData\\", "*.szs", SearchOption.TopDirectoryOnly).Length);
+							foreach (var export in Directory.GetFiles($"{GameFolder}ObjectData\\", "*.szs", SearchOption.TopDirectoryOnly))
+							{ 
+								var Sarc = SARCExt.SARC.UnpackRam(YAZ0.Decompress(File.ReadAllBytes(export)));
+								keyName = Path.GetFileNameWithoutExtension(export);
+								var checkObjFile = Sarc.ContainsKey(keyName + ".bch");
+									if (checkObjFile && process == 1)
 									{
 										var mod = Ohana3DS_Rebirth.Ohana.Models.BCH.load(new MemoryStream(Sarc[keyName + ".bch"]));
 										Ohana3DS_Rebirth.Ohana.Models.GenericFormats.OBJ.export(mod, $"{ModelsFolder}/{keyName}.obj", 0);
 										Ohana3DS_Rebirth.Ohana.Models.GenericFormats.OBJ.ExportTextures(mod, ModelsFolder);
+										File.Delete($"{ModelsFolder}/{keyName}.mtl");
 									}
-									if (checkObjFile == true && keyName.Contains("Texture") && prosess == 0)
+									if (checkObjFile && keyName.Contains("Texture") && process == 0)
 									{
 										var mod = Ohana3DS_Rebirth.Ohana.Models.BCH.load(new MemoryStream(Sarc[keyName + ".bch"]));
 										Ohana3DS_Rebirth.Ohana.Models.GenericFormats.OBJ.ExportTextures(mod, ModelsFolder);
 									}
 									dump.Progressbar1_plus();
-								}
-								dump.Close();
 							}
+							dump.Close();
+							process++;
 						}
 					}
 					catch(Exception ex)
@@ -251,11 +240,8 @@ namespace CTTT3DSExt
 				}
 			}
 		}
-		public static int s = 0;
 
-		bool startup;
-
-
+		public static int process = 0;
 	}
 
 	public class LinksConveter : System.ComponentModel.TypeConverter

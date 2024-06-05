@@ -121,7 +121,7 @@
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(175, 304);
+            this.button5.Location = new System.Drawing.Point(175, 302);
             this.button5.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(253, 32);
@@ -191,10 +191,10 @@
             this.btnEditChildren,
             this.toolStripSeparator5});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 297);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 325);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(438, 96);
+            this.toolStrip1.Size = new System.Drawing.Size(438, 68);
             this.toolStrip1.TabIndex = 22;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -275,8 +275,8 @@
             this.btnHideSelected.Image = ((System.Drawing.Image)(resources.GetObject("btnHideSelected.Image")));
             this.btnHideSelected.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnHideSelected.Name = "btnHideSelected";
-            this.btnHideSelected.Size = new System.Drawing.Size(124, 29);
-            this.btnHideSelected.Text = "Hide Selected";
+            this.btnHideSelected.Size = new System.Drawing.Size(53, 29);
+            this.btnHideSelected.Text = "Hide";
             this.btnHideSelected.Click += new System.EventHandler(this.btnHideSelected_Click);
             // 
             // btnShowSelected
@@ -285,8 +285,8 @@
             this.btnShowSelected.Image = ((System.Drawing.Image)(resources.GetObject("btnShowSelected.Image")));
             this.btnShowSelected.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnShowSelected.Name = "btnShowSelected";
-            this.btnShowSelected.Size = new System.Drawing.Size(131, 29);
-            this.btnShowSelected.Text = "Show Selected";
+            this.btnShowSelected.Size = new System.Drawing.Size(60, 29);
+            this.btnShowSelected.Text = "Show";
             this.btnShowSelected.Click += new System.EventHandler(this.btnShowSelected_Click);
             // 
             // btnShowAll
@@ -406,7 +406,7 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Location = new System.Drawing.Point(5, 304);
+            this.button4.Location = new System.Drawing.Point(5, 302);
             this.button4.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(125, 32);
@@ -424,7 +424,7 @@
             this.propertyGrid1.Location = new System.Drawing.Point(7, 4);
             this.propertyGrid1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(422, 296);
+            this.propertyGrid1.Size = new System.Drawing.Size(422, 294);
             this.propertyGrid1.TabIndex = 0;
             this.propertyGrid1.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGridChange);
             this.propertyGrid1.Click += new System.EventHandler(this.propertyGrid1_Click);
@@ -524,7 +524,7 @@
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(280, 34);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -532,7 +532,7 @@
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(280, 34);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -563,33 +563,32 @@
             // newEditorInstanceToolStripMenuItem
             // 
             this.newEditorInstanceToolStripMenuItem.Name = "newEditorInstanceToolStripMenuItem";
-            this.newEditorInstanceToolStripMenuItem.Size = new System.Drawing.Size(268, 34);
+            this.newEditorInstanceToolStripMenuItem.Size = new System.Drawing.Size(280, 34);
             this.newEditorInstanceToolStripMenuItem.Text = "New editor window";
             this.newEditorInstanceToolStripMenuItem.Click += new System.EventHandler(this.newEditorInstanceToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(265, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(277, 6);
             // 
             // recentToolStripMenuItem
             // 
             this.recentToolStripMenuItem.Name = "recentToolStripMenuItem";
-            this.recentToolStripMenuItem.Size = new System.Drawing.Size(268, 34);
+            this.recentToolStripMenuItem.Size = new System.Drawing.Size(280, 34);
             this.recentToolStripMenuItem.Text = "Recent";
             this.recentToolStripMenuItem.DropDownOpening += new System.EventHandler(this.RecentMenu_Open);
-            this.recentToolStripMenuItem.Click += new System.EventHandler(this.recentToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(265, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(277, 6);
             // 
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("preferencesToolStripMenuItem.Image")));
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(268, 34);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(280, 34);
             this.preferencesToolStripMenuItem.Text = "Settings";
             this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
@@ -642,7 +641,7 @@
             this.changeToolStripMenuItem});
             this.gamePathToolStripItem.Name = "gamePathToolStripItem";
             this.gamePathToolStripItem.ShortcutKeyDisplayString = "";
-            this.gamePathToolStripItem.Size = new System.Drawing.Size(270, 34);
+            this.gamePathToolStripItem.Size = new System.Drawing.Size(205, 34);
             this.gamePathToolStripItem.Text = "Game path:";
             this.gamePathToolStripItem.Click += new System.EventHandler(this.gamePathToolStripItem_Click);
             // 

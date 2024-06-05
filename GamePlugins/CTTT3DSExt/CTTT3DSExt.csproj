@@ -75,11 +75,11 @@
     <Compile Include="Forms\AddObject.Designer.cs">
       <DependentUpon>AddObject.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DumpModels.cs">
+    <Compile Include="Forms\ModelDumper.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DumpModels.Designer.cs">
-      <DependentUpon>DumpModels.cs</DependentUpon>
+    <Compile Include="Forms\ModelDumper.Designer.cs">
+      <DependentUpon>ModelDumper.cs</DependentUpon>
     </Compile>
     <Compile Include="GameModule.cs" />
     <Compile Include="Level.cs" />
@@ -104,8 +104,8 @@
     <EmbeddedResource Include="Forms\AddObject.resx">
       <DependentUpon>AddObject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DumpModels.resx">
-      <DependentUpon>DumpModels.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ModelDumper.resx">
+      <DependentUpon>ModelDumper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LinksEditor.resx">
       <DependentUpon>LinksEditor.cs</DependentUpon>

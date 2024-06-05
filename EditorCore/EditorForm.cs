@@ -20,6 +20,7 @@ using ExtensionMethods;
 using EditorCoreCommon;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using MS.WindowsAPICodePack.Internal;
+using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 
 namespace EditorCore
 {
@@ -94,10 +95,23 @@ namespace EditorCore
 					if (EditingList) return; //if edit links edit only current list
 					IObjList list = LoadedLevel.FindListByObj(value);
 					if (list != null)
-						CurListName = list.name;
-				}
+                    {
+                        CurListName = list.name;
+
+                    }
+                }
 				ObjectsListBox.SelectedItem = value;
-			}
+
+				if (render.TryFindResource(value) != null)
+				{
+					ShowHideSwitch(true);
+				}
+				else
+				{
+					ShowHideSwitch(false);
+                }
+
+            }
 		}
 
 		public ILevelObj[] SelectedObjs
@@ -757,19 +771,29 @@ namespace EditorCore
 
         private void changeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-			using (var dlg = new CommonOpenFileDialog())
+			var dlg = new CommonOpenFileDialog()
 			{
-				dlg.IsFolderPicker = true;
-				dlg.Title = "Select Game Path";
+				IsFolderPicker = true,
+				Title = "Select Game Path" 
+			};
 
-				if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
+			if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
+			{
+				GameFolder = $"{dlg.FileName}\\";
+				Properties.Settings.Default[$"{GameModule.ModuleName}_GamePath"] = GameFolder;
+				Properties.Settings.Default.Save();
+				gamePathToolStripItem.Text = "Game path: " + GameFolder;
+				if (e != null)
 				{
-					GameFolder = $"{dlg.FileName}\\";
-					Properties.Settings.Default[$"{GameModule.ModuleName}_GamePath"] = GameFolder;
-					Properties.Settings.Default.Save();
-					gamePathToolStripItem.Text = "Game path: " + GameFolder; 
-                    GameModule.FormLoaded();
-                }
+					if(MessageBox.Show("Do yo want to dump models from here?\r\rIf you press Yes, EditorCore will be restart.", "Dump Models", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) 
+					{
+						this.Close();
+						Directory.Delete(ModelsFolder,true);
+						GameModule.FormLoaded();
+						Application.Restart();
+					}
+				}
+				GameModule.FormLoaded();
 			}
         }
 
@@ -945,8 +969,9 @@ namespace EditorCore
             }
 
 			var selection = SelectedObjs.Cast<dynamic>().ToList();
-			if (CurList is IPathObj) selection.Add(CurList);
+            if (CurList is IPathObj) selection.Add(CurList);
 			render.SelectObjs(selection);
+
         }        
 
         private void ObjectsList_DoubleClick(object sender, EventArgs e)
@@ -1373,17 +1398,19 @@ namespace EditorCore
 
 		private void btnHideSelected_Click(object sender, EventArgs e)
 		{
-			if (CurList.IsHidden) return;
+			if (!CurList.IsHidden)
 			foreach (var o in SelectedObjs)
-				render.RemoveModel(o);
-		}
+                render.RemoveModel(o);
+			ShowHideSwitch(true);
+        }
 
 		private void btnShowSelected_Click(object sender, EventArgs e)
 		{
-			if (CurList.IsHidden) return;
+			if (!CurList.IsHidden)
 			foreach (var o in SelectedObjs)
 				AddModel(o, CurListName);
-		}
+			ShowHideSwitch(false);
+        }
 
 		private void btnShowAll_Click(object sender, EventArgs e)
 		{
@@ -1454,9 +1481,18 @@ namespace EditorCore
             }
         }
 
-        private void recentToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
+		void ShowHideSwitch(bool appear)
+		{
+			if (appear)
+			{
+                btnHideSelected.Text = "Show";
+                btnHideSelected.Click += new EventHandler(btnShowSelected_Click);
+            }
+			else
+			{
+                btnHideSelected.Text = "Hide";
+                btnHideSelected.Click += btnHideSelected_Click;
+            }
+		}
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace CTTT3DSExt
 {
-    partial class DumpModels
+    partial class ModelDumper
     {
         /// <summary>
         /// Required designer variable.
@@ -95,10 +95,11 @@
             this.label3.Text = "0000";
             this.label3.Click += new System.EventHandler(this.label3_Click_1);
             // 
-            // DumpModels
+            // ModelDumper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(519, 162);
             this.ControlBox = false;
             this.Controls.Add(this.label3);
@@ -107,10 +108,10 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
-            this.Name = "DumpModels";
+            this.Name = "ModelDumper";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DumpModels";
+            this.Text = "ModelDumper";
             this.Load += new System.EventHandler(this.DumpModels_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

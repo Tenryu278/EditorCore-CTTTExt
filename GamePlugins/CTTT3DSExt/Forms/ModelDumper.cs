@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,14 +12,18 @@ using System.Windows.Forms;
 
 namespace CTTT3DSExt
 {
-    public partial class DumpModels : Form
+    public partial class ModelDumper : Form
     {
-        public DumpModels()
+        public ModelDumper(int files)
         {
             InitializeComponent();
-            label2.Text = CTTT3DSModule.s.ToString("0000");
-            progressBar1.Maximum = CTTT3DSModule.s;
+            label2.Text = files.ToString();
+            progressBar1.Maximum = files;
+            dialog();
+            this.Focus();
         }
+
+        async void dialog() => await Task.Run(() => this.ShowDialog());
 
         public void Progressbar1_plus()
         {
@@ -40,7 +45,7 @@ namespace CTTT3DSExt
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            CTTT3DSModule.process += 2;
         }
 
         private void label2_Click(object sender, EventArgs e)
